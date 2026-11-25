@@ -199,12 +199,13 @@ const Header = () => {
     { name: "Contact Us", path: "/contact", icon: Mail },
   ];
 
+  // NAV LINK: smaller text, tighter padding so all 7 items fit in one row
   const navLinkClass = ({ isActive }) =>
-    `group relative flex items-center gap-2 xl:gap-2.5 whitespace-nowrap px-4 xl:px-5 py-4 text-[17px] xl:text-[18px] font-bold tracking-wide transition-all duration-200
+    `group relative flex items-center gap-1.5 xl:gap-2 whitespace-nowrap px-2 xl:px-3 py-2.5 text-[12px] xl:text-[13.5px] font-bold tracking-wide transition-all duration-200
     ${
       isActive
-        ? "border-b-[4px] border-yellow-400 bg-black/10 text-white"
-        : "border-b-[4px] border-transparent text-white hover:bg-black/10 hover:border-yellow-400"
+        ? "border-b-[2px] border-yellow-400 bg-black/10 text-white"
+        : "border-b-[2px] border-transparent text-white hover:bg-black/10 hover:border-yellow-400"
     }`;
 
   const openCustomerPortal = () => {
@@ -218,36 +219,36 @@ const Header = () => {
     }, 150);
   };
 
-  // ---------- SHARED LOGIN PIECES ----------
+  // ---------- SHARED LOGIN PIECES (reduced sizes) ----------
   const inputClass =
-    "w-full rounded-2xl border-2 border-[#CDEBE2] bg-[#F3FAF7] py-4 pl-12 pr-4 text-[20px] text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-[#2AA396] focus:bg-white focus:ring-4 focus:ring-[#2AA396]/15";
-  const labelClass = "mb-2 block text-[18px] font-bold tracking-wide text-gray-700";
+    "w-full rounded-xl border-2 border-[#CDEBE2] bg-[#F3FAF7] py-3 pl-11 pr-4 text-[16px] text-gray-800 outline-none transition placeholder:text-gray-400 focus:border-[#2AA396] focus:bg-white focus:ring-4 focus:ring-[#2AA396]/15";
+  const labelClass = "mb-1.5 block text-[14px] font-bold tracking-wide text-gray-700";
   const primaryBtnClass =
-    "mt-1 flex w-full items-center justify-center gap-2.5 rounded-2xl bg-gradient-to-r from-[#0B6E63] to-[#2AA396] py-4 text-[20px] font-bold tracking-wide text-white shadow-[0_10px_24px_rgba(15,111,100,0.35)] transition hover:-translate-y-0.5 hover:shadow-[0_14px_28px_rgba(15,111,100,0.45)] active:translate-y-0";
+    "mt-1 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#0B6E63] to-[#2AA396] py-3 text-[16px] font-bold tracking-wide text-white shadow-[0_8px_20px_rgba(15,111,100,0.35)] transition hover:-translate-y-0.5 hover:shadow-[0_12px_24px_rgba(15,111,100,0.45)] active:translate-y-0";
 
   const renderModalHeader = (title, subtitle) => (
-    <div className="login-head flex items-center justify-between px-6 py-6 sm:px-8">
-      <div className="flex items-center gap-4">
-        <div className="flex h-[66px] w-[66px] shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-white/80 bg-[#1B8577] shadow-md">
+    <div className="login-head flex items-center justify-between px-5 py-4 sm:px-6">
+      <div className="flex items-center gap-3">
+        <div className="flex h-[52px] w-[52px] shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-white/80 bg-[#1B8577] shadow-md">
           <img src={LOGO_SRC} alt="Eliteinova" className="h-full w-full object-cover" />
         </div>
         <div>
-          <h2 className="text-[30px] font-bold leading-tight tracking-tight text-white">{title}</h2>
-          <p className="mt-0.5 text-[17px] tracking-wide text-teal-50">{subtitle}</p>
+          <h2 className="text-[22px] font-bold leading-tight tracking-tight text-white">{title}</h2>
+          <p className="mt-0.5 text-[14px] tracking-wide text-teal-50">{subtitle}</p>
         </div>
       </div>
       <button
         type="button"
         onClick={closeLoginModal}
-        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/20 text-white transition hover:rotate-90 hover:bg-white/30"
+        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/20 text-white transition hover:rotate-90 hover:bg-white/30"
       >
-        <X size={22} />
+        <X size={18} />
       </button>
     </div>
   );
 
   const renderMethodTabs = () => (
-    <div className="mb-5 flex rounded-2xl bg-[#F1F8F4] p-1.5">
+    <div className="mb-4 flex rounded-xl bg-[#F1F8F4] p-1">
       {[
         { key: "email", label: "Email" },
         { key: "mobile", label: "Mobile Number" },
@@ -256,7 +257,7 @@ const Header = () => {
           key={t.key}
           type="button"
           onClick={() => setLoginMethod(t.key)}
-          className={`flex-1 rounded-xl py-3 text-[18px] font-bold tracking-wide transition-all ${
+          className={`flex-1 rounded-lg py-2 text-[15px] font-bold tracking-wide transition-all ${
             loginMethod === t.key ? "bg-white text-[#0F6F64] shadow-md" : "text-gray-500 hover:text-gray-700"
           }`}
         >
@@ -271,9 +272,9 @@ const Header = () => {
       <label className={labelClass}>{loginMethod === "email" ? "Email Address" : "Mobile Number"}</label>
       <div className="relative">
         {loginMethod === "email" ? (
-          <MailIcon size={22} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#2AA396]" />
+          <MailIcon size={18} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#2AA396]" />
         ) : (
-          <UserPlus size={22} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#2AA396]" />
+          <UserPlus size={18} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#2AA396]" />
         )}
         <input
           type={loginMethod === "email" ? "email" : "tel"}
@@ -291,14 +292,14 @@ const Header = () => {
     <div>
       <label className={labelClass}>{label}</label>
       <div className="relative">
-        <Lock size={22} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#2AA396]" />
+        <Lock size={18} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#2AA396]" />
         <input
           type={showPassword ? "text" : "password"}
           required
           value={formData[key]}
           onChange={(e) => setFormData({ ...formData, [key]: e.target.value })}
           placeholder={placeholder}
-          className={`${inputClass} pr-12`}
+          className={`${inputClass} pr-11`}
         />
         {withEye && (
           <button
@@ -307,7 +308,7 @@ const Header = () => {
             className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 transition hover:text-[#2AA396]"
             tabIndex={-1}
           >
-            {showPassword ? <EyeOff size={22} /> : <Eye size={22} />}
+            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
           </button>
         )}
       </div>
@@ -319,17 +320,17 @@ const Header = () => {
     <div className="animate-slide-up">
       {renderModalHeader(title, subtitle)}
 
-      <div className="px-6 pb-8 pt-6 sm:px-8">
+      <div className="px-5 pb-6 pt-5 sm:px-6">
         {renderMethodTabs()}
 
-        <form onSubmit={handleLoginSubmit} className="flex flex-col gap-5">
+        <form onSubmit={handleLoginSubmit} className="flex flex-col gap-4">
           {renderIdentifierField(emailPlaceholder)}
           {renderPasswordField("Password", "password", "Enter your password")}
 
           {/* Remember & Forgot */}
-          <div className="flex items-center justify-between text-[17px]">
-            <label className="flex cursor-pointer items-center gap-2.5 tracking-wide text-gray-600">
-              <input type="checkbox" className="h-5 w-5 rounded border-gray-300 accent-[#0F6F64]" />
+          <div className="flex items-center justify-between text-[14px]">
+            <label className="flex cursor-pointer items-center gap-2 tracking-wide text-gray-600">
+              <input type="checkbox" className="h-4 w-4 rounded border-gray-300 accent-[#0F6F64]" />
               Remember me
             </label>
             <button type="button" onClick={openForgot} className="font-bold tracking-wide text-[#1FA091] hover:underline">
@@ -338,11 +339,11 @@ const Header = () => {
           </div>
 
           <button type="submit" className={primaryBtnClass}>
-            {submitLabel} <ArrowRight size={22} />
+            {submitLabel} <ArrowRight size={18} />
           </button>
         </form>
 
-        <p className="mt-6 text-center text-[17px] tracking-wide text-gray-500">
+        <p className="mt-5 text-center text-[14px] tracking-wide text-gray-500">
           {footerText}{" "}
           <button type="button" onClick={switchToRegister} className="font-bold text-[#1FA091] hover:underline">
             {footerLink}
@@ -357,7 +358,7 @@ const Header = () => {
     <div>
       <label className={labelClass}>{label}</label>
       <div className="relative">
-        <Icon size={22} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#2AA396]" />
+        <Icon size={18} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#2AA396]" />
         <input
           type={type}
           required
@@ -379,8 +380,8 @@ const Header = () => {
           isVendor ? "Create your account to post properties" : "Create your account to find properties"
         )}
 
-        <div className="px-6 pb-8 pt-6 sm:px-8">
-                    <form onSubmit={handleRegisterSubmit} className="grid grid-cols-1 gap-x-5 gap-y-4 sm:grid-cols-2">
+        <div className="px-5 pb-6 pt-5 sm:px-6">
+          <form onSubmit={handleRegisterSubmit} className="grid grid-cols-1 gap-x-4 gap-y-3 sm:grid-cols-2">
             {isVendor ? (
               <>
                 {renderTextField("Contact Person Name", "name", "Enter your full name", User)}
@@ -399,19 +400,19 @@ const Header = () => {
             {renderPasswordField("Password", "password", "Create a password")}
             {renderPasswordField("Confirm Password", "confirmPassword", "Re-enter your password", false)}
 
-            {formError && <p className="text-[16px] font-semibold text-red-600 sm:col-span-2">{formError}</p>}
+            {formError && <p className="text-[14px] font-semibold text-red-600 sm:col-span-2">{formError}</p>}
 
-            <label className="flex cursor-pointer items-center gap-2.5 text-[17px] tracking-wide text-gray-600 sm:col-span-2">
-              <input type="checkbox" required className="h-5 w-5 rounded border-gray-300 accent-[#0F6F64]" />
+            <label className="flex cursor-pointer items-center gap-2 text-[14px] tracking-wide text-gray-600 sm:col-span-2">
+              <input type="checkbox" required className="h-4 w-4 rounded border-gray-300 accent-[#0F6F64]" />
               I agree to the Terms &amp; Conditions
             </label>
 
             <button type="submit" className={`${primaryBtnClass} sm:col-span-2`}>
-              {isVendor ? "Register as Vendor" : "Create Account"} <ArrowRight size={22} />
+              {isVendor ? "Register as Vendor" : "Create Account"} <ArrowRight size={18} />
             </button>
           </form>
 
-          <p className="mt-6 text-center text-[17px] tracking-wide text-gray-500">
+          <p className="mt-5 text-center text-[14px] tracking-wide text-gray-500">
             Already have an account?{" "}
             <button type="button" onClick={switchToLogin} className="font-bold text-[#1FA091] hover:underline">
               Login here
@@ -437,23 +438,23 @@ const Header = () => {
       <div className="animate-slide-up">
         {renderModalHeader(title, subtitle)}
 
-        <div className="px-6 pb-8 pt-6 sm:px-8">
+        <div className="px-5 pb-6 pt-5 sm:px-6">
           {forgotStep === "request" && (
-            <form onSubmit={handleSendOtp} className="flex flex-col gap-5">
+            <form onSubmit={handleSendOtp} className="flex flex-col gap-4">
               {renderMethodTabs()}
               {renderIdentifierField("your@email.com")}
               <button type="submit" className={primaryBtnClass}>
-                Send OTP <ArrowRight size={22} />
+                Send OTP <ArrowRight size={18} />
               </button>
             </form>
           )}
 
           {forgotStep === "verify" && (
-            <form onSubmit={handleResetPassword} className="flex flex-col gap-5">
+            <form onSubmit={handleResetPassword} className="flex flex-col gap-4">
               <div>
                 <label className={labelClass}>Enter OTP</label>
                 <div className="relative">
-                  <Shield size={22} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#2AA396]" />
+                  <Shield size={18} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#2AA396]" />
                   <input
                     type="text"
                     inputMode="numeric"
@@ -470,16 +471,16 @@ const Header = () => {
               {renderPasswordField("New Password", "newPassword", "Enter new password")}
               {renderPasswordField("Confirm Password", "confirmPassword", "Re-enter new password", false)}
 
-              {formError && <p className="text-[16px] font-semibold text-red-600">{formError}</p>}
+              {formError && <p className="text-[14px] font-semibold text-red-600">{formError}</p>}
 
               <button type="submit" className={primaryBtnClass}>
-                Reset Password <ArrowRight size={22} />
+                Reset Password <ArrowRight size={18} />
               </button>
 
               <button
                 type="button"
                 onClick={handleSendOtp}
-                className="text-center text-[17px] font-bold text-[#1FA091] hover:underline"
+                className="text-center text-[14px] font-bold text-[#1FA091] hover:underline"
               >
                 Resend OTP
               </button>
@@ -487,11 +488,11 @@ const Header = () => {
           )}
 
           {forgotStep === "done" && (
-            <div className="flex flex-col items-center gap-4 py-4 text-center">
-              <CheckCircle2 size={64} className="text-[#2AA396]" strokeWidth={1.8} />
-              <p className="text-[18px] text-gray-600">Your password has been changed successfully.</p>
+            <div className="flex flex-col items-center gap-3 py-3 text-center">
+              <CheckCircle2 size={52} className="text-[#2AA396]" strokeWidth={1.8} />
+              <p className="text-[15px] text-gray-600">Your password has been changed successfully.</p>
               <button type="button" onClick={backToLogin} className={primaryBtnClass}>
-                Back to Login <ArrowRight size={22} />
+                Back to Login <ArrowRight size={18} />
               </button>
             </div>
           )}
@@ -500,9 +501,9 @@ const Header = () => {
             <button
               type="button"
               onClick={backToLogin}
-              className="mt-6 flex w-full items-center justify-center gap-2 text-[17px] font-bold text-gray-500 transition hover:text-[#1FA091]"
+              className="mt-5 flex w-full items-center justify-center gap-2 text-[14px] font-bold text-gray-500 transition hover:text-[#1FA091]"
             >
-              <ArrowLeft size={20} /> Back to Login
+              <ArrowLeft size={16} /> Back to Login
             </button>
           )}
         </div>
@@ -521,30 +522,30 @@ const Header = () => {
       >
         {/* TOP BRAND HEADER */}
         <div className="relative bg-gradient-to-r from-[#1B8577] via-[#289287] to-[#1B8577] bg-[length:200%_auto]">
-          <div className="mx-auto flex min-h-[90px] md:min-h-[100px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-8 py-2 sm:py-3">
+          <div className="mx-auto flex min-h-[64px] md:min-h-[82px] items-center justify-between gap-3 px-4 sm:px-6 lg:px-8 py-2">
             {/* LOGO AND BRAND TEXT */}
-            <div className="flex min-w-0 items-center gap-3 sm:gap-4 lg:gap-5">
+            <div className="flex min-w-0 items-center gap-3 lg:gap-4">
               <Link to="/" className="shrink-0 group">
-                <div className="animate-logo flex h-[65px] w-[65px] sm:h-[75px] sm:w-[75px] lg:h-[80px] lg:w-[80px] items-center justify-center rounded-full border-[3px] border-[#D9B44A] bg-[#1B8577] shadow-sm transition-transform duration-300 group-hover:scale-105 group-hover:rotate-6">
-                  <span className="text-[10px] font-bold text-white text-center leading-tight tracking-tight">
+                <div className="animate-logo flex h-[46px] w-[46px] sm:h-[50px] sm:w-[50px] lg:h-[54px] lg:w-[54px] items-center justify-center rounded-full border-[2.5px] border-[#D9B44A] bg-[#1B8577] shadow-sm transition-transform duration-300 group-hover:scale-105 group-hover:rotate-6">
+                  <span className="text-[7px] sm:text-[8px] font-bold text-white text-center leading-tight tracking-tight">
                     Eliteinova<br />Logo
                   </span>
                 </div>
               </Link>
 
-              <div className="flex flex-col justify-center -mt-1 sm:-mt-1.5 pt-2">
-                <h1 className="whitespace-nowrap leading-none text-[#F4F4E8] pt-1 sm:pt-2" style={{ fontFamily: "'Pacifico', cursive" }}>
-                  <span className="text-[23px] sm:text-[36px] md:text-[30px] lg:text-[38px] tracking-wide">Eliteinova Properties</span>
-                  <span className="text-[20px] sm:text-[28px] md:text-[28px] lg:text-[30px] ml-2 sm:ml-3 tracking-wide">Services</span>
+              <div className="flex flex-col justify-center -mt-0.5">
+                <h1 className="whitespace-nowrap leading-none text-[#F4F4E8]" style={{ fontFamily: "'Pacifico', cursive" }}>
+                  <span className="text-[16px] sm:text-[22px] md:text-[21px] lg:text-[26px] tracking-wide">Eliteinova Properties</span>
+                  <span className="text-[13px] sm:text-[17px] md:text-[17px] lg:text-[19px] ml-1.5 sm:ml-2 tracking-wide">Services</span>
                 </h1>
 
-                <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 pl-1 mt-1 sm:mt-1.5">
-                  <span className="text-[16px] sm:text-[19px] lg:text-[21px] text-[#eaecdf] tracking-wide" style={{ fontFamily: "'Pacifico', cursive" }}>
+                <div className="flex flex-wrap items-center gap-2 pl-1 mt-1">
+                  <span className="text-[12px] sm:text-[13px] lg:text-[15px] text-[#eaecdf] tracking-wide" style={{ fontFamily: "'Pacifico', cursive" }}>
                     No Brokerage
                   </span>
-                  <span className="inline-flex items-center gap-1 sm:gap-1.5 rounded-full border border-[#4C9F93] bg-[#0F766E] px-2 sm:px-2.5 py-0.5 sm:py-1 shadow-sm transition-all duration-300 hover:bg-[#0d655e] hover:scale-105">
-                    <Star size={12} className="animate-star sm:w-[14px] sm:h-[14px] fill-[#FACC15] text-[#FACC15]" />
-                    <span className="text-[11px] sm:text-[13px] text-[#F4F4E8] mt-0.5 pr-1 tracking-wide" style={{ fontFamily: "'Pacifico', cursive" }}>
+                  <span className="inline-flex items-center gap-1 rounded-full border border-[#4C9F93] bg-[#0F766E] px-2 py-0.5 shadow-sm transition-all duration-300 hover:bg-[#0d655e] hover:scale-105">
+                    <Star size={10} className="animate-star fill-[#FACC15] text-[#FACC15]" />
+                    <span className="text-[9px] sm:text-[10px] text-[#F4F4E8] pr-0.5 tracking-wide" style={{ fontFamily: "'Pacifico', cursive" }}>
                       Trusted
                     </span>
                   </span>
@@ -553,13 +554,13 @@ const Header = () => {
             </div>
 
             {/* RIGHT SIDE BUTTONS */}
-            <div className="flex shrink-0 items-center gap-2.5 sm:gap-3 md:gap-3.5">
+            <div className="flex shrink-0 items-center gap-2 sm:gap-2.5">
               <button
                 type="button"
                 onClick={goToProperties}
-                className="hidden sm:inline-flex items-center justify-center gap-2 rounded-lg border border-[#66b9b0] bg-[#3d8a80] px-4 sm:px-5 py-2.5 sm:py-3 text-[14px] sm:text-[16px] font-bold text-white transition-all duration-300 hover:bg-[#156b60] hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 min-w-[140px] group tracking-wide"
+                className="hidden sm:inline-flex items-center justify-center gap-1.5 rounded-lg border border-[#66b9b0] bg-[#3d8a80] px-3 py-1.5 text-[12px] sm:text-[13px] font-bold text-white transition-all duration-300 hover:bg-[#156b60] hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 min-w-[108px] group tracking-wide"
               >
-                <ArrowLeft size={18} className="sm:w-[20px] sm:h-[20px] transition-transform duration-300 group-hover:-translate-x-1" />
+                <ArrowLeft size={14} className="transition-transform duration-300 group-hover:-translate-x-1" />
                 <span>Back to Properties</span>
               </button>
 
@@ -567,18 +568,18 @@ const Header = () => {
               <button
                 type="button"
                 onClick={openLoginModal}
-                className="hidden sm:inline-flex items-center justify-center gap-2 rounded-lg border border-[#66b9b0] bg-[#4c978d] px-5 py-2.5 sm:py-3 text-[15px] sm:text-[17px] font-bold text-white transition-all duration-300 hover:bg-[#156b60] hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 min-w-[118px] group tracking-wide"
+                className="hidden sm:inline-flex items-center justify-center gap-1.5 rounded-lg border border-[#66b9b0] bg-[#4c978d] px-3.5 py-1.5 text-[12px] sm:text-[13px] font-bold text-white transition-all duration-300 hover:bg-[#156b60] hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 min-w-[78px] group tracking-wide"
               >
-                <LogIn size={18} className="sm:w-[20px] sm:h-[20px] transition-transform duration-300 group-hover:translate-x-0.5" />
+                <LogIn size={14} className="transition-transform duration-300 group-hover:translate-x-0.5" />
                 <span>Login</span>
               </button>
 
               <button
                 type="button"
                 onClick={openRegisterModal}
-                className="hidden sm:inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-[#FDE047] to-[#F59E0B] px-5 py-2.5 sm:py-3 text-[15px] sm:text-[17px] font-bold text-[#3d9178] shadow-sm transition-all duration-300 hover:from-[#FCD34D] hover:to-[#D97706] hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 min-w-[125px] group tracking-wide"
+                className="hidden sm:inline-flex items-center justify-center gap-1.5 rounded-lg bg-gradient-to-r from-[#FDE047] to-[#F59E0B] px-3.5 py-1.5 text-[12px] sm:text-[13px] font-bold text-[#3d9178] shadow-sm transition-all duration-300 hover:from-[#FCD34D] hover:to-[#D97706] hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 min-w-[88px] group tracking-wide"
               >
-                <UserPlus size={18} className="sm:w-[20px] sm:h-[20px] transition-transform duration-300 group-hover:scale-110" />
+                <UserPlus size={14} className="transition-transform duration-300 group-hover:scale-110" />
                 <span>Register</span>
               </button>
 
@@ -587,40 +588,40 @@ const Header = () => {
                 <button
                   type="button"
                   onClick={() => setMenuOpen(!menuOpen)}
-                  className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-[#3A9D91] bg-transparent text-white transition-all duration-300 hover:bg-[#156b60] hover:rotate-90 ml-1"
+                  className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full border border-[#3A9D91] bg-transparent text-white transition-all duration-300 hover:bg-[#156b60] hover:rotate-90 ml-0.5"
                 >
-                  {menuOpen ? <X size={22} className="sm:w-[24px] sm:h-[24px]" /> : <Menu size={22} className="sm:w-[24px] sm:h-[24px]" />}
+                  {menuOpen ? <X size={17} /> : <Menu size={17} />}
                 </button>
 
                 {menuOpen && (
-                  <div className="animate-dropdown absolute top-[120%] right-0 mt-2 w-[200px] sm:w-[250px] bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.15)] overflow-hidden z-50 border border-gray-100">
-                    <div className="px-5 pt-5 pb-3">
-                      <p className="text-[12px] font-bold text-gray-500 uppercase tracking-widest">
+                  <div className="animate-dropdown absolute top-[120%] right-0 mt-2 w-[190px] sm:w-[220px] bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.15)] overflow-hidden z-50 border border-gray-100">
+                    <div className="px-4 pt-4 pb-2">
+                      <p className="text-[11px] font-bold text-gray-500 uppercase tracking-widest">
                         STAFF ACCESS
                       </p>
                     </div>
 
-                    <div className="px-3 pb-4 flex flex-col gap-1.5">
+                    <div className="px-2.5 pb-3 flex flex-col gap-1">
                       <button
                         onClick={() => handleNavigation("/admin")}
-                        className="group flex w-full items-center gap-4 rounded-xl p-2 transition-all duration-200 hover:bg-gray-50 hover:translate-x-1"
+                        className="group flex w-full items-center gap-3 rounded-xl p-2 transition-all duration-200 hover:bg-gray-50 hover:translate-x-1"
                       >
-                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#E6F2F0] transition-all duration-200 group-hover:bg-[#d8ebe8] group-hover:rotate-6">
-                          <Shield className="text-[#1B8577]" size={20} strokeWidth={2.5} />
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#E6F2F0] transition-all duration-200 group-hover:bg-[#d8ebe8] group-hover:rotate-6">
+                          <Shield className="text-[#1B8577]" size={17} strokeWidth={2.5} />
                         </div>
-                        <span className="text-[18px] font-bold text-[#0f3d38] transition-colors duration-200 group-hover:text-[#1B8577] tracking-tight">
+                        <span className="text-[15px] font-bold text-[#0f3d38] transition-colors duration-200 group-hover:text-[#1B8577] tracking-tight">
                           Admin Panel
                         </span>
                       </button>
 
                       <button
                         onClick={() => handleNavigation("/office")}
-                        className="group flex w-full items-center gap-4 rounded-xl p-2 transition-all duration-200 hover:bg-[#F4F7F6] hover:translate-x-1"
+                        className="group flex w-full items-center gap-3 rounded-xl p-2 transition-all duration-200 hover:bg-[#F4F7F6] hover:translate-x-1"
                       >
-                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#E6F2F0] transition-all duration-200 group-hover:bg-[#d8ebe8] group-hover:rotate-6">
-                          <Building className="text-[#1B8577]" size={20} strokeWidth={2.5} />
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[#E6F2F0] transition-all duration-200 group-hover:bg-[#d8ebe8] group-hover:rotate-6">
+                          <Building className="text-[#1B8577]" size={17} strokeWidth={2.5} />
                         </div>
-                        <span className="text-[18px] font-bold text-[#0f3d38] transition-colors duration-200 group-hover:text-[#1B8577] tracking-tight">
+                        <span className="text-[15px] font-bold text-[#0f3d38] transition-colors duration-200 group-hover:text-[#1B8577] tracking-tight">
                           Office Panel
                         </span>
                       </button>
@@ -634,7 +635,7 @@ const Header = () => {
 
         {/* DESKTOP NAVIGATION */}
         <nav className="hidden w-full bg-[#15726a] lg:block">
-          <div className="mx-auto flex flex-wrap items-center justify-start xl:justify-between px-2 xl:px-8">
+          <div className="mx-auto flex flex-nowrap items-center justify-between px-2 xl:px-8">
             {navItems.map((item) => {
               const Icon = item.icon;
 
@@ -652,11 +653,11 @@ const Header = () => {
                       className={navLinkClass}
                       onClick={() => setCustomerPortalOpen(false)}
                     >
-                      <Icon size={18} className="xl:w-[20px] xl:h-[20px] transition-transform duration-300 group-hover:scale-110" strokeWidth={2.2} />
+                      <Icon size={15} className="xl:w-[16px] xl:h-[16px] transition-transform duration-300 group-hover:scale-110" strokeWidth={2.2} />
                       <span>{item.name}</span>
                       <ChevronDown
-                        size={16}
-                        className={`xl:w-[18px] xl:h-[18px] ml-0.5 transition-transform duration-300 ${
+                        size={13}
+                        className={`xl:w-[14px] xl:h-[14px] ml-0.5 transition-transform duration-300 ${
                           customerPortalOpen ? "rotate-180" : ""
                         }`}
                         strokeWidth={2.5}
@@ -664,8 +665,8 @@ const Header = () => {
                     </NavLink>
 
                     {customerPortalOpen && (
-                      <div className="animate-dropdown absolute top-full left-0 mt-2 w-[280px] bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.18)] overflow-hidden z-50 border border-gray-100">
-                        <div className="px-4 pt-4 pb-2">
+                      <div className="animate-dropdown absolute top-full left-0 mt-2 w-[250px] bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.18)] overflow-hidden z-50 border border-gray-100">
+                        <div className="px-4 pt-3 pb-2">
                           <p className="text-[11px] font-bold text-gray-500 uppercase tracking-widest">
                             OUR SERVICES
                           </p>
@@ -678,16 +679,16 @@ const Header = () => {
                               <button
                                 key={service.name}
                                 onClick={() => handleNavigation(service.path)}
-                                className="group flex w-full items-center gap-3 rounded-xl px-2 py-2 transition-all duration-200 hover:bg-[#E6F2F0] hover:translate-x-1"
+                                className="group flex w-full items-center gap-3 rounded-xl px-2 py-1.5 transition-all duration-200 hover:bg-[#E6F2F0] hover:translate-x-1"
                               >
-                                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#E6F2F0] transition-all duration-300 group-hover:bg-[#1B8577] group-hover:rotate-6 group-hover:scale-110">
+                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#E6F2F0] transition-all duration-300 group-hover:bg-[#1B8577] group-hover:rotate-6 group-hover:scale-110">
                                   <ServiceIcon
                                     className="text-[#1B8577] group-hover:text-white transition-colors duration-200"
-                                    size={17}
+                                    size={15}
                                     strokeWidth={2.3}
                                   />
                                 </div>
-                                <span className="text-[15px] font-semibold text-[#0f3d38] transition-colors duration-200 group-hover:text-[#1B8577] tracking-tight">
+                                <span className="text-[14px] font-semibold text-[#0f3d38] transition-colors duration-200 group-hover:text-[#1B8577] tracking-tight">
                                   {service.name}
                                 </span>
                               </button>
@@ -702,9 +703,9 @@ const Header = () => {
 
               return (
                 <NavLink key={item.name} to={item.path} className={navLinkClass}>
-                  <Icon size={18} className="xl:w-[20px] xl:h-[20px] transition-transform duration-300 group-hover:scale-110" strokeWidth={2.2} />
+                  <Icon size={15} className="xl:w-[16px] xl:h-[16px] transition-transform duration-300 group-hover:scale-110" strokeWidth={2.2} />
                   <span>{item.name}</span>
-                  {item.dropdown && <ChevronDown size={16} className="xl:w-[18px] xl:h-[18px] ml-0.5 transition-transform duration-300 group-hover:translate-y-0.5" strokeWidth={2.5} />}
+                  {item.dropdown && <ChevronDown size={13} className="xl:w-[14px] xl:h-[14px] ml-0.5 transition-transform duration-300 group-hover:translate-y-0.5" strokeWidth={2.5} />}
                 </NavLink>
               );
             })}
@@ -720,42 +721,41 @@ const Header = () => {
           className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6"
           style={{ backgroundColor: "rgba(0,0,0,0.5)", backdropFilter: "blur(3px)" }}
         >
-          {/* Narrower width: 440px for forms, 480px for role selection */}
           <div
             ref={modalRef}
-            className={`login-modal relative w-full max-h-[92vh] overflow-y-auto rounded-[28px] bg-white shadow-2xl ${
-            loginRole === null ? "max-w-[580px]" : authMode === "register" ? "max-w-[680px]" : "max-w-[540px]"
+            className={`login-modal relative w-full max-h-[92vh] overflow-y-auto rounded-3xl bg-white shadow-2xl ${
+              loginRole === null ? "max-w-[460px]" : authMode === "register" ? "max-w-[560px]" : "max-w-[440px]"
             }`}
           >
             {/* STEP 1: ROLE SELECTION */}
             {loginRole === null && (
-              <div className="p-7 sm:p-8 animate-fade-in">
+              <div className="p-6 animate-fade-in">
                 <div className="flex items-center justify-between mb-1">
-                  <div className="flex items-center gap-2.5 text-[#1B8577]">
-                    {authMode === "register" ? <UserPlus size={24} strokeWidth={2.5} /> : <LogIn size={24} strokeWidth={2.5} />}
-                    <h2 className="text-[24px] font-extrabold tracking-tight">
+                  <div className="flex items-center gap-2 text-[#1B8577]">
+                    {authMode === "register" ? <UserPlus size={20} strokeWidth={2.5} /> : <LogIn size={20} strokeWidth={2.5} />}
+                    <h2 className="text-[20px] font-extrabold tracking-tight">
                       {authMode === "register" ? "Register as" : "Login as"}
                     </h2>
                   </div>
                   <button onClick={closeLoginModal} className="text-gray-400 hover:text-gray-700 transition-colors">
-                    <X size={24} strokeWidth={2.5} />
+                    <X size={20} strokeWidth={2.5} />
                   </button>
                 </div>
-                <p className="text-[17px] text-gray-500 mb-7 font-medium tracking-wide">Choose your role to continue</p>
+                <p className="text-[14px] text-gray-500 mb-5 font-medium tracking-wide">Choose your role to continue</p>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-3">
                   {/* Customer Card */}
                   <button
                     type="button"
                     onClick={() => setLoginRole("customer")}
-                    className="group flex flex-col items-center justify-center gap-3 rounded-2xl border-[3px] border-[#9eb8ec] bg-[#F3F7FF] py-7 px-3 text-center transition-all duration-300 hover:border-[#0a5adb] hover:bg-[#EBF2FF] hover:shadow-lg hover:-translate-y-1"
+                    className="group flex flex-col items-center justify-center gap-2 rounded-2xl border-[2.5px] border-[#9eb8ec] bg-[#F3F7FF] py-5 px-3 text-center transition-all duration-300 hover:border-[#0a5adb] hover:bg-[#EBF2FF] hover:shadow-lg hover:-translate-y-1"
                   >
-                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#E2E9FE] transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
-                      <User size={26} className="text-[#1E3A8A]" strokeWidth={2.5} />
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#E2E9FE] transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
+                      <User size={22} className="text-[#1E3A8A]" strokeWidth={2.5} />
                     </div>
                     <div>
-                      <p className="text-[21px] font-bold text-[#1E3A8A] mt-1 tracking-tight">Customer</p>
-                      <p className="text-[15px] text-gray-600 mt-1 tracking-wide">Looking for properties</p>
+                      <p className="text-[17px] font-bold text-[#1E3A8A] tracking-tight">Customer</p>
+                      <p className="text-[13px] text-gray-600 mt-0.5 tracking-wide">Looking for properties</p>
                     </div>
                   </button>
 
@@ -763,14 +763,14 @@ const Header = () => {
                   <button
                     type="button"
                     onClick={() => setLoginRole("vendor")}
-                    className="group flex flex-col items-center justify-center gap-3 rounded-2xl border-[3px] border-[#99e4d3] bg-[#F2FBF4] py-7 px-3 text-center transition-all duration-300 hover:border-[#47c2ad] hover:bg-[#E8F7EB] hover:shadow-lg hover:-translate-y-1"
+                    className="group flex flex-col items-center justify-center gap-2 rounded-2xl border-[2.5px] border-[#99e4d3] bg-[#F2FBF4] py-5 px-3 text-center transition-all duration-300 hover:border-[#47c2ad] hover:bg-[#E8F7EB] hover:shadow-lg hover:-translate-y-1"
                   >
-                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[#DCFCE7] transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
-                      <Building size={26} className="text-[#166534]" strokeWidth={2.5} />
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#DCFCE7] transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
+                      <Building size={22} className="text-[#166534]" strokeWidth={2.5} />
                     </div>
                     <div>
-                      <p className="text-[21px] font-bold text-[#166534] mt-1 tracking-tight">Vendor</p>
-                      <p className="text-[15px] text-gray-600 mt-1 tracking-wide">Sell or rent properties</p>
+                      <p className="text-[17px] font-bold text-[#166534] tracking-tight">Vendor</p>
+                      <p className="text-[13px] text-gray-600 mt-0.5 tracking-wide">Sell or rent properties</p>
                     </div>
                   </button>
                 </div>
