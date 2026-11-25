@@ -138,7 +138,7 @@ const Carousel = ({ children, showArrows = true, center = false }) => {
     <div className="relative">
       <div
         ref={ref}
-        className={`flex gap-4 overflow-x-auto scroll-smooth px-2 py-6 snap-x snap-mandatory sm:gap-6 2xl:gap-8 ${hideScrollbar} ${
+        className={`flex gap-3 overflow-x-auto scroll-smooth px-2 py-5 snap-x snap-mandatory sm:gap-5 2xl:gap-6 ${hideScrollbar} ${
           center ? "justify-center" : ""
         }`}
       >
@@ -151,17 +151,17 @@ const Carousel = ({ children, showArrows = true, center = false }) => {
             type="button"
             aria-label="Previous"
             onClick={() => scroll(-1)}
-            className="absolute left-1 top-1/2 z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#12281f] shadow-md transition hover:bg-[#0f5e54] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1a7a6d] sm:flex"
+            className="absolute left-1 top-1/2 z-10 hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#12281f] shadow-md transition hover:bg-[#0f5e54] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1a7a6d] sm:flex"
           >
-            <ChevronLeft size={22} />
+            <ChevronLeft size={18} />
           </button>
           <button
             type="button"
             aria-label="Next"
             onClick={() => scroll(1)}
-            className="absolute right-1 top-1/2 z-10 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#12281f] shadow-md transition hover:bg-[#0f5e54] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1a7a6d] sm:flex"
+            className="absolute right-1 top-1/2 z-10 hidden h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#12281f] shadow-md transition hover:bg-[#0f5e54] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1a7a6d] sm:flex"
           >
-            <ChevronRight size={22} />
+            <ChevronRight size={18} />
           </button>
         </>
       )}
@@ -174,9 +174,9 @@ const ServiceTab = ({ icon: Icon, label, onClick }) => (
   <button
     type="button"
     onClick={onClick}
-    className="flex h-12 w-[calc(50%-0.375rem)] items-center justify-center gap-2 [clip-path:polygon(12%_0,100%_0,88%_100%,0_100%)] bg-gradient-to-r from-[#0f5e54] to-[#1a7a6d] px-4 text-sm font-bold text-white transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1a7a6d] sm:h-14 sm:w-[220px] sm:text-base lg:w-auto lg:flex-1 2xl:h-16 2xl:text-lg"
+    className="flex h-10 w-[calc(50%-0.375rem)] items-center justify-center gap-1.5 [clip-path:polygon(12%_0,100%_0,88%_100%,0_100%)] bg-gradient-to-r from-[#0f5e54] to-[#1a7a6d] px-3 text-xs font-bold text-white transition hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1a7a6d] sm:h-12 sm:w-[190px] sm:text-sm lg:w-auto lg:flex-1 2xl:h-14 2xl:text-base"
   >
-    <Icon size={20} />
+    <Icon size={17} />
     {label}
   </button>
 );
@@ -186,15 +186,15 @@ const PolaroidCard = ({ item, tilt, onSelect }) => (
   <button
     type="button"
     onClick={() => onSelect?.(item)}
-    className={`relative w-[260px] shrink-0 snap-center rounded-md bg-white p-4 pb-5 text-center shadow-md transition hover:rotate-0 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1a7a6d] sm:w-[280px] lg:w-[300px] 2xl:w-[360px] ${tilt}`}
+    className={`relative w-[220px] shrink-0 snap-center rounded-md bg-white p-3 pb-4 text-center shadow-md transition hover:rotate-0 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1a7a6d] sm:w-[240px] lg:w-[260px] 2xl:w-[310px] ${tilt}`}
   >
-    <span className="absolute -top-2 left-1/2 h-3.5 w-3.5 -translate-x-1/2 rounded-full bg-[#1a7a6d] ring-4 ring-[#e8f1ee]" />
+    <span className="absolute -top-2 left-1/2 h-3 w-3 -translate-x-1/2 rounded-full bg-[#1a7a6d] ring-4 ring-[#e8f1ee]" />
 
-    <div className="h-52 w-full overflow-hidden rounded sm:h-56 2xl:h-72 bg-gradient-to-br from-[#0f5e54] to-[#1a7a6d]">
+    <div className="h-44 w-full overflow-hidden rounded sm:h-48 2xl:h-60 bg-gradient-to-br from-[#0f5e54] to-[#1a7a6d]">
       <Img src={item.img} alt={item.title} />
     </div>
 
-    <p className="mt-4 font-serif text-lg font-bold italic 2xl:text-2xl text-[#0f5e54]">
+    <p className="mt-3 font-serif text-base font-bold italic 2xl:text-xl text-[#0f5e54]">
       {item.title}
     </p>
   </button>
@@ -204,15 +204,15 @@ const PolaroidCard = ({ item, tilt, onSelect }) => (
 const TrustCard = ({ t }) => (
   <a
     href="#"
-    className="group relative block h-56 overflow-hidden rounded-lg bg-[#0f5e54] sm:h-60 2xl:h-72 shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7fe0c5]"
+    className="group relative block h-48 overflow-hidden rounded-lg bg-[#0f5e54] sm:h-52 2xl:h-60 shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7fe0c5]"
   >
     <Img src={t.img} alt={t.title} className="transition duration-500 group-hover:scale-105" />
     <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/10" />
-    <div className="absolute inset-x-0 bottom-0 p-5">
-      <h3 className="text-xl font-bold text-white">{t.title}</h3>
-      <p className="mt-1.5 text-sm leading-snug text-white/85">{t.desc}</p>
-      <span className="mt-2 inline-flex items-center gap-1 text-base font-semibold text-[#7fe0c5]">
-        {t.link} <ArrowRight size={16} />
+    <div className="absolute inset-x-0 bottom-0 p-4">
+      <h3 className="text-lg font-bold text-white">{t.title}</h3>
+      <p className="mt-1 text-[13px] leading-snug text-white/85">{t.desc}</p>
+      <span className="mt-1.5 inline-flex items-center gap-1 text-sm font-semibold text-[#7fe0c5]">
+        {t.link} <ArrowRight size={14} />
       </span>
     </div>
   </a>
@@ -220,26 +220,26 @@ const TrustCard = ({ t }) => (
 
 /* ---------- Popular service card ---------- */
 const PopularCard = ({ p, onBook }) => (
-  <article className="w-[300px] shrink-0 snap-start overflow-hidden rounded-lg bg-white shadow-md transition hover:shadow-xl sm:w-[320px] lg:w-[340px] 2xl:w-[400px]">
-    <div className="relative h-44 bg-gradient-to-br from-[#0f5e54] to-[#1a7a6d] sm:h-48 2xl:h-60">
+  <article className="w-[260px] shrink-0 snap-start overflow-hidden rounded-lg bg-white shadow-md transition hover:shadow-xl sm:w-[280px] lg:w-[300px] 2xl:w-[340px]">
+    <div className="relative h-36 bg-gradient-to-br from-[#0f5e54] to-[#1a7a6d] sm:h-40 2xl:h-52">
       <Img src={p.img} alt={p.title} />
-      <span className="absolute left-3 top-3 flex items-center gap-1 rounded-full bg-[#e8f1ee] px-3 py-1 text-xs font-semibold text-[#0f5e54]">
-        <BadgeCheck size={14} /> Verified Partner
+      <span className="absolute left-3 top-3 flex items-center gap-1 rounded-full bg-[#e8f1ee] px-2.5 py-0.5 text-[11px] font-semibold text-[#0f5e54]">
+        <BadgeCheck size={12} /> Verified Partner
       </span>
-      <span className="absolute right-3 top-3 rounded-full bg-[#1a7a6d] px-3 py-1 text-xs font-bold text-white">
+      <span className="absolute right-3 top-3 rounded-full bg-[#1a7a6d] px-2.5 py-0.5 text-[11px] font-bold text-white">
         {p.tag}
       </span>
     </div>
 
-    <div className="p-4">
-      <p className="text-sm font-semibold text-[#1a7a6d]">{p.service}</p>
-      <h3 className="mt-0.5 text-xl font-bold text-[#12281f]">{p.title}</h3>
-      <div className="mt-3 flex items-center justify-between border-t border-slate-100 pt-3">
-        <span className="text-lg font-bold text-[#0f5e54]">{p.price}</span>
+    <div className="p-3.5">
+      <p className="text-[13px] font-semibold text-[#1a7a6d]">{p.service}</p>
+      <h3 className="mt-0.5 text-lg font-bold text-[#12281f]">{p.title}</h3>
+      <div className="mt-2.5 flex items-center justify-between border-t border-slate-100 pt-2.5">
+        <span className="text-base font-bold text-[#0f5e54]">{p.price}</span>
         <button
           type="button"
           onClick={() => onBook?.(p)}
-          className="rounded-md bg-[#0f5e54] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#1a7a6d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1a7a6d] focus-visible:ring-offset-2"
+          className="rounded-md bg-[#0f5e54] px-3.5 py-2 text-[13px] font-semibold text-white transition hover:bg-[#1a7a6d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1a7a6d] focus-visible:ring-offset-2"
         >
           Book Now
         </button>
@@ -262,7 +262,7 @@ const CustomerPortalPage = () => {
   return (
     <div className="min-h-screen w-full overflow-x-hidden bg-[#f8fafc] font-sans text-[#12281f]">
       {/* ===== Banner ===== */}
-      <section className="relative h-[220px] w-full overflow-hidden sm:h-[300px] lg:h-[380px] 2xl:h-[460px]">
+      <section className="relative h-[180px] w-full overflow-hidden sm:h-[240px] lg:h-[300px] 2xl:h-[380px]">
         <img
           src={BANNER_IMG}
           alt="Residential towers"
@@ -272,18 +272,18 @@ const CustomerPortalPage = () => {
         <div className="absolute inset-x-0 top-0 h-1 bg-[#0f5e54]" />
 
         <div className="relative z-10 flex h-full flex-col items-center justify-center px-4 text-center">
-          <h1 className="text-4xl font-extrabold text-white drop-shadow sm:text-6xl lg:text-7xl 2xl:text-8xl">
+          <h1 className="text-3xl font-extrabold text-white drop-shadow sm:text-5xl lg:text-6xl 2xl:text-7xl">
             Customer Portal
           </h1>
-          <p className="mt-3 text-base text-white drop-shadow sm:text-xl lg:text-2xl 2xl:text-3xl">
+          <p className="mt-2 text-sm text-white drop-shadow sm:text-lg lg:text-xl 2xl:text-2xl">
             Find your dream property with us - No brokerage, No hassle
           </p>
         </div>
       </section>
 
       {/* ===== Service tabs ===== */}
-      <section className="w-full bg-[#f8fafc] px-4 py-10 sm:px-8 sm:py-16 lg:px-12 2xl:px-20">
-        <div className="flex w-full flex-wrap justify-center gap-3 sm:gap-4 lg:flex-nowrap">
+      <section className="w-full bg-[#f8fafc] px-4 py-8 sm:px-8 sm:py-12 lg:px-12 2xl:px-20">
+        <div className="flex w-full flex-wrap justify-center gap-2.5 sm:gap-3 lg:flex-nowrap">
           {SERVICES.map((s) => (
             <ServiceTab
               key={s.key}
@@ -296,12 +296,12 @@ const CustomerPortalPage = () => {
       </section>
 
       {/* ===== Browse by service ===== */}
-      <section className="w-full bg-[#e8f1ee] px-4 py-10 sm:px-8 sm:py-14 lg:px-12 2xl:px-20">
+      <section className="w-full bg-[#e8f1ee] px-4 py-8 sm:px-8 sm:py-12 lg:px-12 2xl:px-20">
         <div className="w-full">
-          <h2 className="text-center text-3xl font-black uppercase tracking-tight sm:text-4xl lg:text-5xl 2xl:text-6xl">
+          <h2 className="text-center text-2xl font-black uppercase tracking-tight sm:text-3xl lg:text-4xl 2xl:text-5xl">
             Browse by service
           </h2>
-          <p className="mt-3 text-center text-base text-slate-500 sm:text-lg 2xl:text-xl">
+          <p className="mt-2 text-center text-sm text-slate-500 sm:text-base 2xl:text-lg">
             Tap a card to view that service
           </p>
 
@@ -309,14 +309,14 @@ const CustomerPortalPage = () => {
             <div
               key={s.key}
               ref={(el) => (sectionRefs.current[s.key] = el)}
-              className="scroll-mt-6 pt-12"
+              className="scroll-mt-6 pt-10"
             >
-              <h3 className="text-center text-2xl font-extrabold uppercase tracking-wide sm:text-3xl 2xl:text-4xl">
+              <h3 className="text-center text-xl font-extrabold uppercase tracking-wide sm:text-2xl 2xl:text-3xl">
                 {s.tab}
               </h3>
-              <div className="mx-auto mt-2 h-1 w-16 bg-[#1a7a6d]" />
+              <div className="mx-auto mt-2 h-1 w-14 bg-[#1a7a6d]" />
 
-              <div className="mt-6">
+              <div className="mt-5">
                 <Carousel showArrows={s.items.length > 4} center={s.items.length <= 4}>
                   {s.items.map((item, i) => (
                     <PolaroidCard
@@ -334,16 +334,16 @@ const CustomerPortalPage = () => {
       </section>
 
       {/* ===== Why customers trust us ===== */}
-      <section className="w-full bg-[#1c3b34] px-4 py-10 sm:px-8 sm:py-12 lg:px-12 2xl:px-20">
+      <section className="w-full bg-[#1c3b34] px-4 py-8 sm:px-8 sm:py-10 lg:px-12 2xl:px-20">
         <div className="w-full">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-black uppercase text-white sm:text-3xl lg:text-4xl 2xl:text-5xl">
+            <h2 className="text-xl font-black uppercase text-white sm:text-2xl lg:text-3xl 2xl:text-4xl">
               Why customers trust us
             </h2>
-            <span className="text-sm tracking-[0.25em] text-[#7fb8aa]">OUR PROMISE</span>
+            <span className="text-xs tracking-[0.25em] text-[#7fb8aa]">OUR PROMISE</span>
           </div>
 
-          <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 2xl:gap-8">
+          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 2xl:gap-6">
             {TRUST.map((t) => (
               <TrustCard key={t.title} t={t} />
             ))}
@@ -352,17 +352,17 @@ const CustomerPortalPage = () => {
       </section>
 
       {/* ===== Popular services ===== */}
-      <section className="w-full bg-white px-4 py-10 sm:px-8 sm:py-14 lg:px-12 2xl:px-20">
+      <section className="w-full bg-white px-4 py-8 sm:px-8 sm:py-12 lg:px-12 2xl:px-20">
         <div className="w-full">
-          <h2 className="text-center text-3xl font-black uppercase tracking-tight text-[#1a7a6d] sm:text-4xl lg:text-5xl 2xl:text-6xl">
+          <h2 className="text-center text-2xl font-black uppercase tracking-tight text-[#1a7a6d] sm:text-3xl lg:text-4xl 2xl:text-5xl">
             Popular services
           </h2>
-          <p className="mt-2 text-center text-lg text-slate-500">
+          <p className="mt-2 text-center text-base text-slate-500">
             Booked by customers near you
           </p>
-          <div className="mx-auto mt-4 h-1 w-16 bg-[#1a7a6d]" />
+          <div className="mx-auto mt-3 h-1 w-14 bg-[#1a7a6d]" />
 
-          <div className="mt-6">
+          <div className="mt-5">
             <Carousel showArrows>
               {POPULAR.map((p) => (
                 <PopularCard key={p.id} p={p} onBook={handleBook} />

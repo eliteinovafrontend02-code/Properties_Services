@@ -521,7 +521,7 @@ const Header = () => {
         }`}
       >
         {/* TOP BRAND HEADER */}
-        <div className="relative bg-gradient-to-r from-[#1B8577] via-[#289287] to-[#1B8577] bg-[length:200%_auto]">
+      <div className="relative bg-gradient-to-r from-[#177A6E] via-[#2e9b8e] to-[#177A6E]">
           <div className="mx-auto flex min-h-[64px] md:min-h-[82px] items-center justify-between gap-3 px-4 sm:px-6 lg:px-8 py-2">
             {/* LOGO AND BRAND TEXT */}
             <div className="flex min-w-0 items-center gap-3 lg:gap-4">
@@ -558,7 +558,7 @@ const Header = () => {
               <button
                 type="button"
                 onClick={goToProperties}
-                className="hidden sm:inline-flex items-center justify-center gap-1.5 rounded-lg border border-[#66b9b0] bg-[#3d8a80] px-3 py-1.5 text-[12px] sm:text-[13px] font-bold text-white transition-all duration-300 hover:bg-[#156b60] hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 min-w-[108px] group tracking-wide"
+                className="hidden sm:inline-flex items-center justify-center gap-1.5 rounded-lg border border-[#66b9b0] bg-[#3d8a80] px-3 py-2 text-[12px] sm:text-[13px] font-bold text-white transition-all duration-300 hover:bg-[#156b60] hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 min-w-[108px] group tracking-wide"
               >
                 <ArrowLeft size={14} className="transition-transform duration-300 group-hover:-translate-x-1" />
                 <span>Back to Properties</span>
@@ -568,7 +568,7 @@ const Header = () => {
               <button
                 type="button"
                 onClick={openLoginModal}
-                className="hidden sm:inline-flex items-center justify-center gap-1.5 rounded-lg border border-[#66b9b0] bg-[#4c978d] px-3.5 py-1.5 text-[12px] sm:text-[13px] font-bold text-white transition-all duration-300 hover:bg-[#156b60] hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 min-w-[78px] group tracking-wide"
+                className="hidden sm:inline-flex items-center justify-center gap-1.5 rounded-lg border border-[#66b9b0] bg-[#4c978d] px-3.5 py-2 text-[12px] sm:text-[13px] font-bold text-white transition-all duration-300 hover:bg-[#156b60] hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 min-w-[78px] group tracking-wide"
               >
                 <LogIn size={14} className="transition-transform duration-300 group-hover:translate-x-0.5" />
                 <span>Login</span>
@@ -577,7 +577,7 @@ const Header = () => {
               <button
                 type="button"
                 onClick={openRegisterModal}
-                className="hidden sm:inline-flex items-center justify-center gap-1.5 rounded-lg bg-gradient-to-r from-[#FDE047] to-[#F59E0B] px-3.5 py-1.5 text-[12px] sm:text-[13px] font-bold text-[#3d9178] shadow-sm transition-all duration-300 hover:from-[#FCD34D] hover:to-[#D97706] hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 min-w-[88px] group tracking-wide"
+                className="hidden sm:inline-flex items-center justify-center gap-1.5 rounded-lg bg-gradient-to-r from-[#FDE047] to-[#F59E0B] px-3.5 py-2 text-[12px] sm:text-[13px] font-bold text-[#3d9178] shadow-sm transition-all duration-300 hover:from-[#FCD34D] hover:to-[#D97706] hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 min-w-[88px] group tracking-wide"
               >
                 <UserPlus size={14} className="transition-transform duration-300 group-hover:scale-110" />
                 <span>Register</span>
@@ -665,7 +665,7 @@ const Header = () => {
                     </NavLink>
 
                     {customerPortalOpen && (
-                      <div className="animate-dropdown absolute top-full left-0 mt-2 w-[250px] bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.18)] overflow-hidden z-50 border border-gray-100">
+                      <div className="animate-dropdown absolute top-full left-0 mt-2 w-[220px] bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.18)] overflow-hidden z-50 border border-gray-100">
                         <div className="px-4 pt-3 pb-2">
                           <p className="text-[11px] font-bold text-gray-500 uppercase tracking-widest">
                             OUR SERVICES
