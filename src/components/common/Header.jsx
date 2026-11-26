@@ -26,6 +26,8 @@ const Header = () => {
   const [formError, setFormError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState(EMPTY_FORM);
+  // Set when the popup is opened from a "Post Your ... Service" button: { label, redirectTo }
+  const [postContext, setPostContext] = useState(null);
 
   const dropdownRef = useRef(null);
   const customerPortalRef = useRef(null);
@@ -46,6 +48,22 @@ const Header = () => {
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Open the login popup from "Post Your ... Service" buttons (PostServicesPage)
+  useEffect(() => {
+    const handler = (e) => {
+      setAuthMode("login");
+      setLoginRole(null);
+      setLoginMethod("email");
+      setFormError("");
+      setFormData(EMPTY_FORM);
+      setShowPassword(false);
+      setPostContext(e.detail || null);
+      setLoginModalOpen(true);
+    };
+    window.addEventListener("open-auth-modal", handler);
+    return () => window.removeEventListener("open-auth-modal", handler);
   }, []);
 
   // Close modal on ESC
@@ -82,6 +100,7 @@ const Header = () => {
 
   // ---------- LOGIN MODAL HANDLERS ----------
   const openLoginModal = () => {
+    setPostContext(null);
     setAuthMode("login");
     setLoginModalOpen(true);
     setLoginRole(null);
@@ -99,6 +118,7 @@ const Header = () => {
 
   const closeLoginModal = () => {
     setLoginModalOpen(false);
+    setPostContext(null);
     setLoginRole(null);
     setFormData(EMPTY_FORM);
     setShowPassword(false);
@@ -174,7 +194,8 @@ const Header = () => {
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
-    const basePath = loginRole === "vendor" ? "/vendor/dashboard" : "/customer/dashboard";
+    const basePath =
+      postContext?.redirectTo || (loginRole === "vendor" ? "/vendor/dashboard" : "/customer/dashboard");
     // TODO: call your auth API here
     console.log(`Login as ${loginRole}:`, formData);
     closeLoginModal();
@@ -377,7 +398,11 @@ const Header = () => {
       <div className="animate-slide-up">
         {renderModalHeader(
           isVendor ? "Vendor Registration" : "Customer Registration",
-          isVendor ? "Create your account to post properties" : "Create your account to find properties"
+          isVendor
+            ? postContext
+              ? `Create your account to post ${postContext.label} services`
+              : "Create your account to post properties"
+            : "Create your account to find properties"
         )}
 
         <div className="px-5 pb-6 pt-5 sm:px-6">
@@ -516,12 +541,12 @@ const Header = () => {
       <style>{fontStyle}</style>
 
       <header
-        className={`w-full font-sans shadow-md relative z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 w-full font-sans shadow-md z-[1000] transition-all duration-300 ${
           scrolled ? "shadow-xl" : ""
         }`}
       >
         {/* TOP BRAND HEADER */}
-      <div className="relative bg-gradient-to-r from-[#177A6E] via-[#2e9b8e] to-[#177A6E]">
+        <div className="relative bg-gradient-to-r from-[#177A6E] via-[#2e9b8e] to-[#177A6E]">
           <div className="mx-auto flex min-h-[64px] md:min-h-[82px] items-center justify-between gap-3 px-4 sm:px-6 lg:px-8 py-2">
             {/* LOGO AND BRAND TEXT */}
             <div className="flex min-w-0 items-center gap-3 lg:gap-4">
@@ -727,8 +752,56 @@ const Header = () => {
               loginRole === null ? "max-w-[460px]" : authMode === "register" ? "max-w-[560px]" : "max-w-[440px]"
             }`}
           >
-            {/* STEP 1: ROLE SELECTION */}
-            {loginRole === null && (
+            {/* LOGIN / REGISTER CHOICE (opened from "Post Your ... Service") */}
+            {loginRole === null && postContext && (
+              <div className="p-6 animate-fade-in">
+                <div className="flex items-center justify-between mb-1">
+                  <div className="flex items-center gap-2 text-[#1B8577]">
+                    <LogIn size={20} strokeWidth={2.5} />
+                    <h2 className="text-[20px] font-extrabold tracking-tight">Post Your {postContext.label} Service</h2>
+                  </div>
+                  <button onClick={closeLoginModal} className="text-gray-400 hover:text-gray-700 transition-colors">
+                    <X size={20} strokeWidth={2.5} />
+                  </button>
+                </div>
+                <p className="text-[14px] text-gray-500 mb-5 font-medium tracking-wide">Login or register to continue</p>
+
+                <div className="grid grid-cols-1 gap-3 min-[400px]:grid-cols-2">
+                  {/* Login card */}
+                  <button
+                    type="button"
+                    onClick={() => { setAuthMode("login"); setLoginRole("vendor"); }}
+                    className="group flex flex-col items-center justify-center gap-2 rounded-2xl border-[2.5px] border-[#9eb8ec] bg-[#F3F7FF] py-5 px-3 text-center transition-all duration-300 hover:border-[#0a5adb] hover:bg-[#EBF2FF] hover:shadow-lg hover:-translate-y-1"
+                  >
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#E2E9FE] transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
+                      <LogIn size={22} className="text-[#1E3A8A]" strokeWidth={2.5} />
+                    </div>
+                    <div>
+                      <p className="text-[17px] font-bold text-[#1E3A8A] tracking-tight">Login</p>
+                      <p className="text-[13px] text-gray-600 mt-0.5 tracking-wide">Already have an account</p>
+                    </div>
+                  </button>
+
+                  {/* Register card */}
+                  <button
+                    type="button"
+                    onClick={() => { setAuthMode("register"); setLoginRole("vendor"); }}
+                    className="group flex flex-col items-center justify-center gap-2 rounded-2xl border-[2.5px] border-[#99e4d3] bg-[#F2FBF4] py-5 px-3 text-center transition-all duration-300 hover:border-[#47c2ad] hover:bg-[#E8F7EB] hover:shadow-lg hover:-translate-y-1"
+                  >
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#DCFCE7] transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
+                      <UserPlus size={22} className="text-[#166534]" strokeWidth={2.5} />
+                    </div>
+                    <div>
+                      <p className="text-[17px] font-bold text-[#166534] tracking-tight">Register</p>
+                      <p className="text-[13px] text-gray-600 mt-0.5 tracking-wide">Create a new account</p>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* STEP 1: ROLE SELECTION (normal Login / Register buttons) */}
+            {loginRole === null && !postContext && (
               <div className="p-6 animate-fade-in">
                 <div className="flex items-center justify-between mb-1">
                   <div className="flex items-center gap-2 text-[#1B8577]">
@@ -792,7 +865,9 @@ const Header = () => {
             {authMode === "login" && loginRole === "vendor" &&
               renderLoginForm({
                 title: "Vendor Portal",
-                subtitle: "Post and manage your properties",
+                subtitle: postContext
+                  ? `Sign in to post your ${postContext.label} service`
+                  : "Post and manage your properties",
                 emailPlaceholder: "vendor@company.com",
                 submitLabel: "Sign In as Vendor",
                 footerText: "Don't have a vendor account?",
