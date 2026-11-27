@@ -386,18 +386,27 @@ const CategoryCard = ({ cat, index, onPost }) => {
           ))}
         </div>
 
-        {/* post button (always at the bottom) */}
-        <div className="mt-auto pt-6">
-          <button
-            type="button"
-            onClick={() => onPost(cat)}
-            className="group/btn relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-[#e8f5ec] py-2.5 text-[13px] font-bold text-[#0f5e54] transition duration-300 hover:bg-gradient-to-r hover:from-[#0f5e54] hover:to-[#1a7a6d] hover:text-white hover:shadow-lg active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1a7a6d] focus-visible:ring-offset-2 sm:rounded-2xl sm:py-3 sm:text-sm"
-          >
-            <span className="pointer-events-none absolute inset-y-0 -left-full w-1/2 -skew-x-12 bg-white/30 transition-all duration-700 group-hover/btn:left-[150%]" />
-            <span className="relative">Post Your {cat.short} Service</span>
-            <ArrowRight size={16} className="relative transition-transform duration-300 group-hover/btn:translate-x-1" />
-          </button>
-        </div>
+       
+{/* Post button (always at the bottom) */}
+<div className="mt-auto pt-6">
+  <button
+    type="button"
+    onClick={() => onPost(cat)}
+    className="group/btn relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-xl bg-[#00695C] py-2.5 text-[13px] font-bold text-white shadow-md shadow-[#00695C]/20 transition-all duration-300 hover:bg-[#26A69A] hover:shadow-lg hover:shadow-[#00695C]/25 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#26A69A] focus-visible:ring-offset-2 sm:rounded-2xl sm:py-3 sm:text-sm"
+  >
+    <span className="pointer-events-none absolute inset-y-0 -left-full w-1/2 -skew-x-12 bg-white/25 transition-all duration-700 group-hover/btn:left-[150%]" />
+
+    <span className="relative">
+      Post Your {cat.short} Service
+    </span>
+
+    <ArrowRight
+      size={16}
+      className="relative transition-transform duration-300 group-hover/btn:translate-x-1"
+    />
+  </button>
+</div>
+
       </div>
     </article>
   );

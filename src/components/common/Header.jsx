@@ -2,8 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import {
   Home, Building2, TrendingUp, Landmark, Settings, Info, Mail,
-  LogIn, UserPlus, Menu, X, ChevronDown, Star, ArrowLeft, Shield,
-  Building, HardHat, Paintbrush, Sparkles, Droplets, User,
+  LogIn, UserPlus, Menu, X, ChevronDown, ChevronRight, Star, ArrowLeft, Shield,
+  Building, HardHat, Droplets, User, Sofa, Zap, Hammer, Layers, Ruler,
   Mail as MailIcon, Lock, Eye, EyeOff, ArrowRight, CheckCircle2, Phone, MapPin
 } from "lucide-react";
 
@@ -11,16 +11,127 @@ import {
 const LOGO_SRC = "/logo.png";
 const EMPTY_FORM = { email: "", mobile: "", password: "", name: "", company: "", city: "", otp: "", newPassword: "", confirmPassword: "" };
 
+/* ---------- Customer Portal: categories + sub categories (same slugs as OurServicesPage) ---------- */
+const PORTAL_CATEGORIES = [
+  {
+    slug: "residential-construction",
+    short: "Residential Construction",
+    icon: Home,
+    items: [
+      "Individual House Construction", "Villa Construction", "Bungalow Construction",
+      "Apartment Construction", "Row House Construction", "Farmhouse Construction",
+      "Duplex House Construction", "Independent Floor Construction",
+      "Rental House Construction", "Residential Building Construction",
+    ],
+  },
+  {
+    slug: "interior-construction-design",
+    short: "Interior & Design",
+    icon: Sofa,
+    items: [
+      "Residential Interior Design", "Commercial Interior Design",
+      "Modular Interior Services", "Interior Finishing Services", "Interior Design Styles",
+    ],
+  },
+  {
+    slug: "electrical-plumbing",
+    short: "Electrical & Plumbing",
+    icon: Zap,
+    items: [
+      "Residential Electrical Installation", "Commercial Electrical Installation",
+      "Wiring & Rewiring", "Electrical Panel Installation", "Lighting Installation",
+      "Plumbing Installation", "Water Tank Installation", "Bathroom Plumbing",
+      "Drainage Pipe Installation", "Sanitary Fittings Installation",
+    ],
+  },
+  {
+    slug: "renovation-repair",
+    short: "Renovation & Repair",
+    icon: Hammer,
+    items: [
+      "Complete House Renovation", "Apartment Renovation", "Kitchen Renovation",
+      "Bathroom Renovation", "Office Renovation", "Building Extension",
+      "Structural Repair", "Roof Repair", "Crack Repair", "Repainting & Refurbishment",
+    ],
+  },
+  {
+    slug: "waterproofing-protection",
+    short: "Waterproofing & Protection",
+    icon: Droplets,
+    items: [
+      "Terrace Waterproofing", "Bathroom Waterproofing", "Basement Waterproofing",
+      "Roof Waterproofing", "External Wall Waterproofing", "Water Leakage Repair",
+      "Damp Proofing", "Expansion Joint Waterproofing",
+    ],
+  },
+  {
+    slug: "exterior-landscaping",
+    short: "Exterior & Landscaping",
+    icon: Layers,
+    items: [
+      "Compound Wall Construction", "Gate Installation", "Driveway Construction",
+      "Paver Block Installation", "Garden Landscaping", "Terrace Garden Development",
+      "Outdoor Seating Construction", "Swimming Pool Construction", "Rainwater Harvesting",
+      "External Painting", "Boundary Wall Repair", "Outdoor Lighting Installation",
+    ],
+  },
+  {
+    slug: "architectural-engineering",
+    short: "Architectural & Engineering",
+    icon: Ruler,
+    items: [
+      "Architectural Design", "Building Plan Preparation", "3D Elevation Design",
+      "Structural Design", "Soil Testing", "Site Survey", "Quantity Surveying",
+      "BOQ Preparation", "Building Approval Assistance", "Construction Project Planning",
+    ],
+  },
+  {
+    slug: "civil-structural-construction",
+    short: "Civil & Structural",
+    icon: HardHat,
+    items: [
+      "Site Excavation", "Soil Filling & Leveling", "Foundation Construction",
+      "RCC Construction", "Column Construction", "Beam Construction", "Slab Construction",
+      "Brickwork", "Blockwork", "Masonry Work", "Plastering Work", "Structural Steel Work",
+      "Concrete Flooring", "Retaining Wall Construction", "Structural Strengthening",
+    ],
+  },
+  {
+    slug: "commercial-construction",
+    short: "Commercial Construction",
+    icon: Building2,
+    items: [
+      "Office Building Construction", "Shopping Complex Construction",
+      "Retail Shop Construction", "Hotel Construction", "Restaurant Construction",
+      "Hospital Construction", "School Building Construction", "Warehouse Construction",
+      "Showroom Construction", "Commercial Complex Construction",
+    ],
+  },
+  {
+    slug: "specialized-construction",
+    short: "Specialized Construction",
+    icon: Settings,
+    items: [
+      "Pre-Engineered Building Construction", "Prefabricated House Construction",
+      "Steel Structure Construction", "Industrial Shed Construction",
+      "Solar Panel Mounting Structures", "Fire Safety System Installation",
+      "Lift & Elevator Installation", "HVAC Installation", "Acoustic Treatment",
+      "Green Building Solutions",
+    ],
+  },
+];
+
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [customerPortalOpen, setCustomerPortalOpen] = useState(false);
+  const [activeCat, setActiveCat] = useState(null); // category whose sub-services are shown in the flyout
   const [scrolled, setScrolled] = useState(false);
 
   // ---------- LOGIN MODAL STATE ----------
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const [loginRole, setLoginRole] = useState(null); // null | "customer" | "vendor" | "forgot"
   const [authMode, setAuthMode] = useState("login"); // "login" | "register"
-  const [loginMethod, setLoginMethod] = useState("email"); // "email" | "mobile"
+  const [loginMethod, setLoginMethod] = useState("mobile"); // "email" | "mobile"
   const [forgotStep, setForgotStep] = useState("request"); // "request" | "verify" | "done"
   const [forgotFrom, setForgotFrom] = useState("customer");
   const [formError, setFormError] = useState("");
@@ -44,6 +155,7 @@ const Header = () => {
       }
       if (customerPortalRef.current && !customerPortalRef.current.contains(event.target)) {
         setCustomerPortalOpen(false);
+        setActiveCat(null);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -55,7 +167,7 @@ const Header = () => {
     const handler = (e) => {
       setAuthMode("login");
       setLoginRole(null);
-      setLoginMethod("email");
+      setLoginMethod("mobile");
       setFormError("");
       setFormData(EMPTY_FORM);
       setShowPassword(false);
@@ -95,6 +207,7 @@ const Header = () => {
   const handleNavigation = (path) => {
     setMenuOpen(false);
     setCustomerPortalOpen(false);
+    setActiveCat(null);
     navigate(path);
   };
 
@@ -104,7 +217,7 @@ const Header = () => {
     setAuthMode("login");
     setLoginModalOpen(true);
     setLoginRole(null);
-    setLoginMethod("email");
+    setLoginMethod("mobile");
     setFormError("");
     setFormData(EMPTY_FORM);
     setShowPassword(false);
@@ -202,14 +315,6 @@ const Header = () => {
     navigate(basePath);
   };
 
-  const customerPortalServices = [
-    { name: "Construction Services", path: "/customer-portal/construction", icon: HardHat },
-    { name: "Interior Services", path: "/customer-portal/interior", icon: Building2 },
-    { name: "Painting Services", path: "/customer-portal/painting", icon: Paintbrush },
-    { name: "Cleaning Services", path: "/customer-portal/cleaning", icon: Sparkles },
-    { name: "Plumbing Services", path: "/customer-portal/plumbing", icon: Droplets },
-  ];
-
   const navItems = [
     { name: "Home", path: "/", icon: Home },
     { name: "Customer Portal", path: "/customer-portal", icon: Building2, dropdown: true, isCustomerPortal: true },
@@ -237,6 +342,7 @@ const Header = () => {
   const closeCustomerPortal = () => {
     customerPortalTimeout.current = setTimeout(() => {
       setCustomerPortalOpen(false);
+      setActiveCat(null);
     }, 150);
   };
 
@@ -269,24 +375,26 @@ const Header = () => {
   );
 
   const renderMethodTabs = () => (
-    <div className="mb-4 flex rounded-xl bg-[#F1F8F4] p-1">
-      {[
-        { key: "email", label: "Email" },
-        { key: "mobile", label: "Mobile Number" },
-      ].map((t) => (
-        <button
-          key={t.key}
-          type="button"
-          onClick={() => setLoginMethod(t.key)}
-          className={`flex-1 rounded-lg py-2 text-[15px] font-bold tracking-wide transition-all ${
-            loginMethod === t.key ? "bg-white text-[#0F6F64] shadow-md" : "text-gray-500 hover:text-gray-700"
-          }`}
-        >
-          {t.label}
-        </button>
-      ))}
-    </div>
-  );
+  <div className="mb-4 flex rounded-xl bg-[#F1F8F4] p-1">
+    {[
+      { key: "mobile", label: "Mobile Number" },
+      { key: "email", label: "Email" },
+    ].map((t) => (
+      <button
+        key={t.key}
+        type="button"
+        onClick={() => setLoginMethod(t.key)}
+        className={`flex-1 rounded-lg py-2 text-[15px] font-bold tracking-wide transition-all ${
+          loginMethod === t.key
+            ? "bg-white text-[#0F6F64] shadow-md"
+            : "text-gray-500 hover:text-gray-700"
+        }`}
+      >
+        {t.label}
+      </button>
+    ))}
+  </div>
+);
 
   const renderIdentifierField = (emailPlaceholder) => (
     <div>
@@ -676,7 +784,10 @@ const Header = () => {
                     <NavLink
                       to={item.path}
                       className={navLinkClass}
-                      onClick={() => setCustomerPortalOpen(false)}
+                      onClick={() => {
+                        setCustomerPortalOpen(false);
+                        setActiveCat(null);
+                      }}
                     >
                       <Icon size={15} className="xl:w-[16px] xl:h-[16px] transition-transform duration-300 group-hover:scale-110" strokeWidth={2.2} />
                       <span>{item.name}</span>
@@ -689,36 +800,72 @@ const Header = () => {
                       />
                     </NavLink>
 
+                    {/* CATEGORIES DROPDOWN + SUB CATEGORY FLYOUT */}
                     {customerPortalOpen && (
-                      <div className="animate-dropdown absolute top-full left-0 mt-2 w-[220px] bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.18)] overflow-hidden z-50 border border-gray-100">
-                        <div className="px-4 pt-3 pb-2">
-                          <p className="text-[11px] font-bold text-gray-500 uppercase tracking-widest">
-                            OUR SERVICES
-                          </p>
-                        </div>
+                      <div className="animate-dropdown absolute left-0 top-full z-50 pt-2">
+                        <div className="relative w-[260px]">
+                          {/* categories */}
+                          <div className="overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-[0_10px_40px_rgba(0,0,0,0.18)]">
+                            <div className="px-4 pb-2 pt-3">
+                              <p className="text-[11px] font-bold uppercase tracking-widest text-gray-500">OUR SERVICES</p>
+                            </div>
+                            <div className="flex flex-col gap-0.5 px-2 pb-3">
+                              {PORTAL_CATEGORIES.map((cat) => {
+                                const CatIcon = cat.icon;
+                                const active = activeCat?.slug === cat.slug;
+                                return (
+                                  <button
+                                    key={cat.slug}
+                                    type="button"
+                                    onMouseEnter={() => setActiveCat(cat)}
+                                    onClick={() => handleNavigation(`/services/${cat.slug}`)}
+                                    className={`group flex w-full items-center gap-3 rounded-xl px-2 py-1.5 text-left transition-all duration-200 ${
+                                      active ? "bg-[#E6F2F0]" : "hover:bg-[#E6F2F0]"
+                                    }`}
+                                  >
+                                    <span
+                                      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-all duration-300 ${
+                                        active ? "bg-[#1B8577] text-white" : "bg-[#E6F2F0] text-[#1B8577]"
+                                      }`}
+                                    >
+                                      <CatIcon size={15} strokeWidth={2.3} />
+                                    </span>
+                                    <span className={`flex-1 text-[14px] font-semibold tracking-tight ${active ? "text-[#1B8577]" : "text-[#0f3d38]"}`}>
+                                      {cat.short}
+                                    </span>
+                                    <ChevronRight size={15} className={`transition-transform duration-200 ${active ? "translate-x-0.5 text-[#1B8577]" : "text-gray-400"}`} />
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </div>
 
-                        <div className="item-stagger px-2 pb-3 flex flex-col gap-1">
-                          {customerPortalServices.map((service) => {
-                            const ServiceIcon = service.icon;
-                            return (
-                              <button
-                                key={service.name}
-                                onClick={() => handleNavigation(service.path)}
-                                className="group flex w-full items-center gap-3 rounded-xl px-2 py-1.5 transition-all duration-200 hover:bg-[#E6F2F0] hover:translate-x-1"
-                              >
-                                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#E6F2F0] transition-all duration-300 group-hover:bg-[#1B8577] group-hover:rotate-6 group-hover:scale-110">
-                                  <ServiceIcon
-                                    className="text-[#1B8577] group-hover:text-white transition-colors duration-200"
-                                    size={15}
-                                    strokeWidth={2.3}
-                                  />
-                                </div>
-                                <span className="text-[14px] font-semibold text-[#0f3d38] transition-colors duration-200 group-hover:text-[#1B8577] tracking-tight">
-                                  {service.name}
-                                </span>
-                              </button>
-                            );
-                          })}
+                          {/* sub categories flyout */}
+                          {activeCat && (
+                            <div key={activeCat.slug} className="animate-dropdown absolute left-full top-0 pl-2">
+                              <div className="max-h-[70vh] w-[260px] overflow-y-auto rounded-2xl border border-gray-100 bg-white py-2 shadow-[0_10px_40px_rgba(0,0,0,0.18)]">
+                                <button
+                                  type="button"
+                                  onClick={() => handleNavigation(`/services/${activeCat.slug}`)}
+                                  className="block w-full border-b border-gray-100 px-4 py-2 text-left text-[14px] font-extrabold text-[#1B8577] transition hover:bg-[#E6F2F0]"
+                                >
+                                  All {activeCat.short}
+                                </button>
+                                {activeCat.items.map((label) => (
+                                  <button
+                                    key={label}
+                                    type="button"
+                                    onClick={() =>
+                                      handleNavigation(`/services/${activeCat.slug}?service=${encodeURIComponent(label)}`)
+                                    }
+                                    className="block w-full px-4 py-2 text-left text-[13.5px] font-medium text-[#0f3d38] transition-all duration-200 hover:translate-x-1 hover:bg-[#E6F2F0] hover:text-[#1B8577]"
+                                  >
+                                    {label}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+                          )}
                         </div>
                       </div>
                     )}
